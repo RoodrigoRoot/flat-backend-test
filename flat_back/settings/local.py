@@ -19,3 +19,6 @@ DATABASES = {
         'PORT': env.int("DB_PORT")
     }
 }
+
+GIT_URL = env.str("GIT_URL", default='')
+TOKEN_GIT = env.str("TOKEN_GIT", default='')
