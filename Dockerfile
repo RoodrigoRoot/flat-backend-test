@@ -9,6 +9,8 @@ RUN apk add --update --no-cache --virtual .tmp-build-deps \
       gcc libc-dev linux-headers postgresql-dev \
       gcc make libffi-dev openssl-dev python3-dev libxml2-dev libxslt-dev
 RUN apk add git
+RUN   git config --global user.email "roodrigoroot@gmail.com"
+RUN   git config --global user.name "Rodrigo"
 RUN pip install -r /requirements.txt
 RUN apk del .tmp-build-deps
 
