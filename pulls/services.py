@@ -1,8 +1,10 @@
 import uuid
 from typing import Dict
 
+from pulls.models import PullRequest
 from Utils.repo import GitHubManage, CommitManage
 from Utils.exceptions import FileWasNotCreatedException
+
 
 def merge_pull_request(data: Dict) -> Dict:
 
@@ -12,12 +14,14 @@ def merge_pull_request(data: Dict) -> Dict:
         return response
     number :int = response['data']['number']
     response_merge: Dict = GitHubManage.merge_pull_request(number)
+    save_pull_request(data)
     return response_merge
 
 
 def create_pull_request(data: Dict) -> Dict:
     response_commit = create_commit_push()
     response: Dict = GitHubManage.create_pull_request(data, response_commit['branch_name'])
+    save_pull_request(data)
     return response
 
 
@@ -35,3 +39,14 @@ def create_commit_push() -> Dict:
     except Exception as e:
         print(e)
         return {'success': False, 'errors': str(e)}
+
+
+def save_pull_request(data: Dict) -> PullRequest:
+
+    try:
+        pull_request = PullRequest(**data)
+        pull_request.save()
+        return PullRequest
+    except Exception as e:
+        print(e)
+        return False

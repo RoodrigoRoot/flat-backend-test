@@ -14,12 +14,14 @@ HEADERS_GITHUB = {
     'Accept': 'application/vnd.github.v3+json'
     }
 
+
 BODY_CREATE_PULL = {
     'title':'',
     'body':'',
     'head':'test/pull',
     'base': 'test/merge'
 }
+
 
 def request_POST(url, data: Dict) ->Dict:
     try:
@@ -210,6 +212,3 @@ class CommitManage:
         except Exception as e:
             print(e)
             return False
-
-
-
