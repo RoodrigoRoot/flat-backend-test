@@ -18,8 +18,8 @@ HEADERS_GITHUB = {
 BODY_CREATE_PULL = {
     'title':'',
     'body':'',
-    'head':'test/pull',
-    'base': 'test/merge'
+    'head':'test/files',
+    'base': 'test/pull'
 }
 
 
