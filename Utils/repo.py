@@ -15,7 +15,6 @@ HEADERS_GITHUB = {
     }
 
 BODY_CREATE_PULL = {
-    #'owner':'roodrigorot',
     'title':'',
     'body':'',
     'head':'test/pull',
@@ -31,7 +30,8 @@ def request_POST(url, data: Dict) ->Dict:
     except Exception as e:
         error_response = {'success': False, 'message': str(e)}
         errors = response.json()
-        reason = errors['errors'][0]['message']
+        print(errors)
+        reason = errors['errors'][0].get('message', 'Error del administrador, se está revisando. Intentar más tarde.')
         error_response['reason'] = reason
         return error_response
 
@@ -154,11 +154,12 @@ class GitHubManage(HubManage):
 
 
     @classmethod
-    def create_pull_request(cls, data: Dict) -> Dict:
+    def create_pull_request(cls, data: Dict, branch_name: str=None) -> Dict:
         print("<------ Create Pull Request ------>")
         url = f"{settings.GIT_URL}/pulls"
         BODY_CREATE_PULL['title'] = data['title']
         BODY_CREATE_PULL['body'] = data['description']
+        BODY_CREATE_PULL['head'] = branch_name or BODY_CREATE_PULL['head']
         response_pull = request_POST(url, BODY_CREATE_PULL)
         return response_pull
 
@@ -172,8 +173,8 @@ class GitHubManage(HubManage):
 
 
     @classmethod
-    def send_push():
-        ...
+    def send_push(cls, name_branch: str):
+        subprocess.run(f'git push repo {name_branch}', shell=True)
 
 
 class CommitManage:
@@ -181,26 +182,33 @@ class CommitManage:
     @classmethod
     def create_branch(cls, name_branch: str) -> bool:
         try:
-            subprocess.run(f'git checkout -b {name_branch}')
+            print(f'<------- Create Branch {name_branch} ------->')
+            subprocess.run(f'git checkout -b {name_branch}', shell=True)
             return True
         except Exception as e:
+            print(e)
             return False
 
     @classmethod
     def create_document(cls) -> bool:
+        print(f'<------- Create Document ------->')
         try:
-            subprocess.run(f'touch doc_{str(uuid.uuid4())[:5]+"txt"}')
-            return True
+            file_name = f'doc_{str(uuid.uuid4())[:4]+".txt"}'
+            subprocess.run(f'touch {file_name}', shell=True)
+            return {'success': True, 'file_name': file_name}
         except Exception as e:
-            return False
+            print(e)
+            return {'success': False}
 
 
     @classmethod
-    def create_commit(cls):
+    def create_commit(cls, file_name: str):
+        print(f'<------- Create Commit ------->')
         try:
-            subprocess.run(f'git add . ; git commit -m "Test: Commit new file"')
+            subprocess.run(f'git add {file_name} ; git commit -m "Test: Commit new file"', shell=True)
             return True
         except Exception as e:
+            print(e)
             return False
 
 
