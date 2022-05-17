@@ -137,7 +137,7 @@ class GitHubManage(HubManage):
     @classmethod
     def get_all_pull_request(cls) -> Dict:
         print("<------ Get Pull Request ------>")
-        url = f"{settings.GIT_URL}/pulls"
+        url = f"{settings.GIT_URL}/pulls?state=all"
         response_pull= request_GET(url)
         print(response_pull)
         if not response_pull:
