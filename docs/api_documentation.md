@@ -1,3 +1,4 @@
+
 # Get All Authors
 
 Used to get all Authors for this repository
@@ -26,7 +27,7 @@ Used to get all Authors for this repository
 ]
 ```
 
-# Get Commits
+# Get All Commits
 
 Used to get all Commits for this repository
 
@@ -62,41 +63,6 @@ Used to get all Commits for this repository
 ]
 ```
 
-# Get All Commits
-
-Used to get all Commits for this repository
-
-**URL** : `/api/v1/commits/<sha:str>`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-**Data constraints**
-
-
-## Success Response
-
-**Code** : `200 OK`
-
-**Content example**
-
-```json
-[
-  {
-    "sha": "0dce5fa98f4c6e355c1f144beac5b6c6fe9ea0de",
-    "commit": {
-      "author": {
-        "name": "Rodrigo",
-        "email": "roodrigoroot@gmail.com",
-        "date": "2022-05-17T19:51:29Z"
-      },
-      "message": "Chore: Delete files"
-    },
-    "url": "https://api.github.com/repos/RoodrigoRoot/flat-backend-test/commits/0dce5fa98f4c6e355c1f144beac5b6c6fe9ea0de"
-  }
-]
-```
 
 # Get Details Commit
 
@@ -133,43 +99,6 @@ Used to get Details a Commit for this repository
 
 ```
 
-
-
-# Get Commits
-
-Used to get all Commits for this repository
-
-**URL** : `/api/v1/commits/`
-
-**Method** : `GET`
-
-**Auth required** : NO
-
-**Data constraints**
-
-
-## Success Response
-
-**Code** : `200 OK`
-
-**Content example**
-
-```json
-[
-  {
-    "sha": "0dce5fa98f4c6e355c1f144beac5b6c6fe9ea0de",
-    "commit": {
-      "author": {
-        "name": "Rodrigo",
-        "email": "roodrigoroot@gmail.com",
-        "date": "2022-05-17T19:51:29Z"
-      },
-      "message": "Chore: Delete files"
-    },
-    "url": "https://api.github.com/repos/RoodrigoRoot/flat-backend-test/commits/0dce5fa98f4c6e355c1f144beac5b6c6fe9ea0de"
-  }
-]
-```
 
 # Get All Branches
 
