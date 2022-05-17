@@ -32,5 +32,7 @@ class DetailsCommitSerializer(AbstractCommitsSerializer):
 class AllCommitsSerializer(AbstractCommitsSerializer):
     ...
 
-
+    def validate(self, attrs):
+        if type(attrs) == dict:
+            return []
 
