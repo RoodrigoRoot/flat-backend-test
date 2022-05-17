@@ -6,7 +6,7 @@
 API Rest to get data from a repository, in this case we are going to retrive: Authors, Commits, Branches and Pull Request, using [GitHub Rst API v3](https://docs.github.com/en/rest)
 
 
-To see a full list of the API methods and endpoints please refere to the API Documentation here.
+To see a full list of the API methods and endpoints please refere to the API Documentation [here](https://github.com/RoodrigoRoot/flat-backend-test/blob/main/docs/api_documentation.md).
 
 ## Objectives
 
