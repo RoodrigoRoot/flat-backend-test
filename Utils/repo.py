@@ -59,7 +59,7 @@ def request_GET(url) -> Dict:
         print(to)
         return {'success': False, 'message': 'Proveedor no disponible por el momento. Intente más tarde'}
     except Exception as e:
-        reason = response.json()['message']
+        reason = response.json().get('message', 'Contactar con soporte')
         return {'success': False, 'message': str(e), 'reason':reason}
 
 
