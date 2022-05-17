@@ -55,8 +55,12 @@ def request_GET(url) -> Dict:
         response.raise_for_status()
         response_json = response.json()
         return {'success': True, 'data': response_json}
+    except requests.exceptions.Timeout as to:
+        print(to)
+        return {'success': False, 'message': 'Proveedor no disponible por el momento. Intente más tarde'}
     except Exception as e:
-        return {'success': False, 'message': str(e)}
+        reason = response.json().get('message', 'Contactar con soporte')
+        return {'success': False, 'message': str(e), 'reason':reason}
 
 
 class HubManage(ABC):
