@@ -24,3 +24,6 @@ migrations:
 
 migrate:
 	@docker-compose exec backend python3 manage.py migrate
+
+test:
+	@docker-compose exec backend pytest
