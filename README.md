@@ -103,6 +103,10 @@ This project proposes a solution based on Api Rest based on this interview [Flat
 
 `make stop`
 
+#### To run tests
+
+`make test`
+
 
 ## Other commands
 
