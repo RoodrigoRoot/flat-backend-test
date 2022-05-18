@@ -7,6 +7,11 @@ from Utils.exceptions import FileWasNotCreatedException
 
 
 def merge_pull_request(data: Dict) -> Dict:
+    """
+    With tis function we create a pull request with status merge, usign the
+    class GitHubManage with his function create_pull_request and after
+    merge_pull_request to manage all steps.
+    """
 
     response_commit = create_commit_push()
     response: Dict = GitHubManage.create_pull_request(data, response_commit['branch_name'])
@@ -19,6 +24,12 @@ def merge_pull_request(data: Dict) -> Dict:
 
 
 def create_pull_request(data: Dict) -> Dict:
+
+    """
+    With tis function we create a pull request with status open, usign the 
+    class GitHubManage with his function create_pull_request to manage all steps.
+    """
+
     response_commit = create_commit_push()
     response: Dict = GitHubManage.create_pull_request(data, response_commit['branch_name'])
     save_pull_request(data)
@@ -26,6 +37,14 @@ def create_pull_request(data: Dict) -> Dict:
 
 
 def create_commit_push() -> Dict:
+
+    """
+    This function is responsible for executing
+    several methods to create a new branch,
+    create new document, create commit and
+    send push to Github
+    """
+
     branch_name: str = 'branch_' + str(uuid.uuid4())[:4]
     try:
         CommitManage.create_branch(branch_name)
@@ -42,6 +61,11 @@ def create_commit_push() -> Dict:
 
 
 def save_pull_request(data: Dict) -> PullRequest:
+
+    """
+    With this function we create a row of
+    Pull Request on DB.
+    """
 
     try:
         pull_request = PullRequest(**data)
