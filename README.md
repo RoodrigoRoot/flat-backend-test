@@ -1,3 +1,4 @@
+
 # This project is to technical interview of Flat.mx
 
 
@@ -7,6 +8,10 @@ API Rest to get data from a repository, in this case we are going to retrive: Au
 
 
 To see a full list of the API methods and endpoints please refere to the API Documentation [here](https://github.com/RoodrigoRoot/flat-backend-test/blob/main/docs/api_documentation.md).
+
+Get .env file with values [here](https://drive.google.com/file/d/1jOlbgr-zkTpOy-xwOeUQZTl3q8varKy0/view?usp=sharing)
+##### **This file only for 7 days and after taht it will be deleted**
+##### **Only put this file in the root**
 
 ## Objectives
 
