@@ -27,7 +27,9 @@ class DetailCommitsAPIView(APIView):
 
     @swagger_auto_schema(operation_description='Get details a commit')
     def get(self, request, *args, **kwargs):
-        sha_commit = self.kwargs['sha']
+        sha_commit = self.kwargs.get('sha', '')
+        if not sha_commit:
+            return Response({'success': False, 'message': "No se envió el campo sha"}, status=status.HTTP_400_BAD_REQUEST)
         commit_detail = GitHubManage.get_commit_by_sha(sha_commit)
         if not commit_detail['success']:
             return Response(commit_detail, status=status.HTTP_400_BAD_REQUEST)
@@ -50,7 +52,9 @@ class DetailsBranchAPIView(APIView):
 
     @swagger_auto_schema(operation_description='Get details a branch')
     def get(self, request, *args, **kwargs):
-        branch_name = self.kwargs['branch']
+        branch_name = self.kwargs.get('branch', '')
+        if not branch_name:
+            return Response({'success': False, 'message': "No se envió el nombre de la rama"}, status=status.HTTP_400_BAD_REQUEST)
         branch = GitHubManage.get_branch_detail(branch_name)
         if not branch['success']:
             return Response(branch, status=status.HTTP_400_BAD_REQUEST)
@@ -95,7 +99,9 @@ class DetailsPullRequestAPIView(APIView):
 
     @swagger_auto_schema(operation_description='Get details a pull request')
     def get(self, request, *args, **kwargs):
-        number = self.kwargs['number']
+        number = self.kwargs.get('number', '')
+        if not number:
+            return Response({'success': False, 'message': "No se envió el campo number"}, status=status.HTTP_400_BAD_REQUEST)
         pull_request = GitHubManage.get_details_pull_request(number)
         if not pull_request['success']:
             return Response(pull_request, status=status.HTTP_400_BAD_REQUEST)
