@@ -23,7 +23,12 @@ BODY_CREATE_PULL = {
 }
 
 
-def request_POST(url, data: Dict) ->Dict:
+def request_POST(url, data: Dict) -> Dict:
+    """
+    This function is only for requests with method post
+    This functions is used when going to create a pull request
+    with status open
+    """
     try:
         response = requests.post(url, headers=HEADERS_GITHUB, data=json.dumps(data))
         response.raise_for_status()
@@ -39,6 +44,11 @@ def request_POST(url, data: Dict) ->Dict:
 
 
 def request_PUT(url: str) -> Dict:
+    """
+    This function is only for requests with method post
+    This functions is used when going to create a pull request
+    with status merge
+    """
     try:
         response = requests.put(url, headers=HEADERS_GITHUB)
         response.raise_for_status()
@@ -50,6 +60,13 @@ def request_PUT(url: str) -> Dict:
 
 
 def request_GET(url) -> Dict:
+    """
+    This function is only for requests with method get
+    This functions is used to get data to:
+        - Commits
+        - Branches
+        - Authors (Collaborators)
+    """
     try:
         response = requests.get(url, headers=HEADERS_GITHUB)
         response.raise_for_status()
@@ -64,6 +81,12 @@ def request_GET(url) -> Dict:
 
 
 class HubManage(ABC):
+
+    """
+    This Abstract Class is set
+    different methods to use with different
+    providers (Github, Gitlab, etc)
+    """
 
     @abstractclassmethod
     def get_all_commit(cls):
@@ -92,8 +115,16 @@ class HubManage(ABC):
 
 class GitHubManage(HubManage):
 
+    """
+    This class is for manage requests to GitHub
+    Get Data or send data. Inheriting from HubManage
+    """
+
     @classmethod
     def get_all_commit(cls) -> Dict:
+        """
+        This function is to get all commits from this repo
+        """
         print("<------ Get All Commits ------>")
         url = f"{settings.GIT_URL}/commits"
         response_commits = request_GET(url)
@@ -104,6 +135,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_commit_by_sha(cls, sha: str) -> Dict:
+        """
+        This function is to get details commits by sha
+        """
         print("<------ Get Commit by Sha ------>")
         url = f"{settings.GIT_URL}/commits/{sha}"
         response_commit = request_GET(url)
@@ -112,6 +146,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_all_branches(cls) -> Dict:
+        """
+        This function is to get all branches from this repository
+        """
         print("<------ Get All Branch ------>")
         url = f"{settings.GIT_URL}/branches"
         response_branches = request_GET(url)
@@ -122,6 +159,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_branch_detail(cls, branch: str) -> Dict:
+        """
+        This function is to get details of a branch from this repository by name
+        """
         print("<------ Get Branch Details ------>")
         url = f"{settings.GIT_URL}/branches/{branch}"
         response_branch= request_GET(url)
@@ -132,6 +172,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_all_authors(cls) -> Dict:
+        """
+        This function is to get all authors (collaborators) from this repository
+        """
         print("<------ GET All Authors ------>")
         url = f"{settings.GIT_URL}/collaborators"
         response_authors = request_GET(url)
@@ -140,6 +183,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_all_pull_request(cls) -> Dict:
+        """
+        This function is to get all pull requests created for this repository
+        """
         print("<------ Get Pull Request ------>")
         url = f"{settings.GIT_URL}/pulls?state=all"
         response_pull= request_GET(url)
@@ -150,6 +196,9 @@ class GitHubManage(HubManage):
 
     @classmethod
     def get_details_pull_request(cls, number: int) -> Dict:
+        """
+        This function is to get details of a pull request by number
+        """
         print("<------ Get Pull Request ------>")
         url = f"{settings.GIT_URL}/pulls/{number}"
         response_pull= request_GET(url)
@@ -161,6 +210,10 @@ class GitHubManage(HubManage):
 
     @classmethod
     def create_pull_request(cls, data: Dict, branch_name: str=None) -> Dict:
+        """
+        This function is to create a pull requests with status open.
+        Only we need send data and set url to function request_POST
+        """
         print("<------ Create Pull Request ------>")
         url = f"{settings.GIT_URL}/pulls"
         BODY_CREATE_PULL['title'] = data['title']
@@ -172,6 +225,10 @@ class GitHubManage(HubManage):
 
     @classmethod
     def merge_pull_request(cls, number: int):
+        """
+        This function is to create a pull requests with status merge.
+        Only we need send data and set url to function request_PUT
+        """
         print("<------ Merge Pull Request ------>")
         url = f"{settings.GIT_URL}/pulls/{number}/merge"
         response_pull = request_PUT(url)
@@ -180,13 +237,23 @@ class GitHubManage(HubManage):
 
     @classmethod
     def send_push(cls, name_branch: str):
+        """
+        This function is to send a push to github using subproccess.
+        """
         subprocess.run(f'git push repo {name_branch}', shell=True)
 
 
 class CommitManage:
 
+    """
+    This class is to manage branchs, create documents for commits
+    """
+
     @classmethod
     def create_branch(cls, name_branch: str) -> bool:
+        """
+        This function is to create a branch using subprocess with the shell
+        """
         try:
             print(f'<------- Create Branch {name_branch} ------->')
             subprocess.run(f'git checkout -b {name_branch}', shell=True)
@@ -197,6 +264,9 @@ class CommitManage:
 
     @classmethod
     def create_document(cls) -> bool:
+        """
+        This function is to create a document for new commit using subprocess with the shell
+        """
         print(f'<------- Create Document ------->')
         try:
             file_name = f'doc_{str(uuid.uuid4())[:4]+".txt"}'
@@ -209,6 +279,9 @@ class CommitManage:
 
     @classmethod
     def create_commit(cls, file_name: str):
+        """
+        This function is to create a commit for send to github using subprocess with the shell
+        """
         print(f'<------- Create Commit ------->')
         try:
             subprocess.run(f'git add {file_name} ; git commit -m "Test: Commit new file"', shell=True)

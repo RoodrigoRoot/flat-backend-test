@@ -14,6 +14,13 @@ from pulls.services import create_pull_request, merge_pull_request
 
 class AllCommitsAPIView(APIView):
 
+    """
+    This class is the endpoint to return all commits.
+    Method: GET
+    :params: None
+    :response: List[Dict]
+    """
+
     @swagger_auto_schema(operation_description='Get all repository commits')
     def get(self, request, *args, **kwargs):
         commits = GitHubManage.get_all_commit()
@@ -24,7 +31,12 @@ class AllCommitsAPIView(APIView):
 
 
 class DetailCommitsAPIView(APIView):
-
+    """
+    This class is the endpoint to return a details commit.
+    Method: GET
+    :params: None
+    :response: Dict
+    """
     @swagger_auto_schema(operation_description='Get details a commit')
     def get(self, request, *args, **kwargs):
         sha_commit = self.kwargs.get('sha', '')
@@ -38,7 +50,12 @@ class DetailCommitsAPIView(APIView):
 
 
 class AllBranchesAPIView(APIView):
-
+    """
+    This class is the endpoint to return all branches.
+    Method: GET
+    :params: None
+    :response: List[Dict]
+    """
     @swagger_auto_schema(operation_description='Get all repository branches')
     def get(self, request, *args, **kwargs):
         branches = GitHubManage.get_all_branches()
@@ -49,6 +66,12 @@ class AllBranchesAPIView(APIView):
 
 
 class DetailsBranchAPIView(APIView):
+    """
+    This class is the endpoint to return details of a branch.
+    Method: GET
+    :params: None
+    :response: Dict
+    """
 
     @swagger_auto_schema(operation_description='Get details a branch')
     def get(self, request, *args, **kwargs):
@@ -63,7 +86,12 @@ class DetailsBranchAPIView(APIView):
 
 
 class AllAuthorsAPIView(APIView):
-
+    """
+    This class is the endpoint to return all authors (Collaborators).
+    Method: GET
+    :params: None
+    :response: List[Dict]
+    """
     @swagger_auto_schema(operation_description='Get all repository authors')
     def get(self, request, *args, **kwargs):
         authors = GitHubManage.get_all_authors()
@@ -74,6 +102,12 @@ class AllAuthorsAPIView(APIView):
 
 
 class PullRequestAPIView(APIView):
+    """
+    This class is the endpoint to create and return pulls requests.
+    Method: GET and POST
+    :params: None
+    :response: List[Dict] and Dict
+    """
 
     @swagger_auto_schema(operation_description='Get all pulls requests')
     def get(self, request, *args, **kwargs):
@@ -96,7 +130,12 @@ class PullRequestAPIView(APIView):
 
 
 class DetailsPullRequestAPIView(APIView):
-
+    """
+    This class is the endpoint to return details of a pull request.
+    Method: GET
+    :params: None
+    :response: Dict
+    """
     @swagger_auto_schema(operation_description='Get details a pull request')
     def get(self, request, *args, **kwargs):
         number = self.kwargs.get('number', '')
