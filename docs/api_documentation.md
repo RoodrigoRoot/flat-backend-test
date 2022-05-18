@@ -99,6 +99,33 @@ Used to get Details a Commit for this repository
 
 ```
 
+## Error Response
+
+**Code** : `400 BAD REQUEST`
+If not send sha of commit
+**Content example**
+
+```json
+{"success": False,
+ "message": "No se envió el sha del commit"
+}
+
+```
+
+## Error Response
+
+**Code** : `400 BAD REQUEST`
+Sha does not exists on this repository
+**Content example**
+
+```json
+{
+  "success": false,
+  "message": "422 Client Error: Unprocessable Entity for url: https://api.github.com/repos/roodrigoroot/flat-backend-test/commits/132",
+  "reason": "No commit found for SHA: 132"
+}
+
+```
 
 # Get All Branches
 
@@ -176,6 +203,32 @@ Used to get Details a Branch for this repository
   }
 }
 ```
+
+## Error Response
+
+**Code** : `400 BAD REQUEST`
+If not send name branch
+**Content example**
+
+```json
+{"success": False,
+ "message": "No se envió el nombre de la rama"
+}
+
+```
+
+## Error Response
+
+**Code** : `400 BAD REQUEST`
+Name branch does not exists on this repository
+**Content example**
+
+```json
+{
+  "success": false,
+  "message": "404 Client Error: Not Found for url: https://api.github.com/repos/roodrigoroot/flat-backend-test/branches/algo",
+  "reason": "Branch not found"
+}
 
 # Get All Pull Request
 
@@ -266,6 +319,33 @@ Used to get Details Pull Request for this repository
     "number": 51
 }
 ```
+
+## Error Response
+If not send field number
+**Code** : `400 BAD REQUEST`
+
+**Content example**
+
+```json
+{"success": False,
+ "message": "No se envió el campo number"
+}
+
+```
+
+## Error Response
+
+**Code** : `400 BAD REQUEST`
+Number of pull request does not exists on this repository
+**Content example**
+
+```json
+{
+  "success": false,
+  "message": "404 Client Error: Not Found for url: https://api.github.com/repos/roodrigoroot/flat-backend-test/pulls/123123321312",
+  "reason": "Not Found"
+}
+
 # Create a Pull Request
 
 Used to create a new stock on the database.
