@@ -141,7 +141,17 @@ This project proposes a solution based on Api Rest based on this interview [Flat
 
 For this project we use Swagger and postman
 
-[Collection of Postman](https://drive.google.com/file/d/1lCvnCTeXM9iQMwOxkzadjMJ6ULd1UDne/view?usp=sharing)
+Postman:
+Download collection and import on your Postman
+[Collection of Postman](https://drive.google.com/file/d/1yCMYC5J82dCB-1aDteT9-uaM66ud49xe/view?usp=sharing)
 
 With swagger we need run the project and go to '/api/v1/docs/'
 [Swagger](http://localhost:8000/api/v1/docs/)
+
+Steps for use Swagger:
+1 . Login user
+2. Copy access token
+3. Got to the button **Authorize**
+3. Put the keyword **Bearer** before acces token
+4. Test it
+
